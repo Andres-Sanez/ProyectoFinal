@@ -50,6 +50,28 @@ public StoreController() {
     public List<Producto> getProductos() {
         return catalogo;
     }
+    
+    public List<Producto> getCarrito() {
+        return carrito;
+    }
+
+    // ========== Carrito ==========
+    public void agregarAlCarrito(Producto producto) {
+        carrito.add(producto);
+    }
+
+    public void vaciarCarrito() {
+        carrito.clear();
+    }
+
+    public void finalizarCompra() {
+        for (Producto p : carrito) {
+            historial.push(p);
+        }
+        carrito.clear();
+    }
+
+    
 
     
 
