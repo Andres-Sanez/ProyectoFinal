@@ -54,6 +54,12 @@ public StoreController() {
     public List<Producto> getCarrito() {
         return carrito;
     }
+    
+    public Queue<Producto> getListaDeseos() {
+        return listaDeseos;
+    }
+
+    
 
     // ========== Carrito ==========
     public void agregarAlCarrito(Producto producto) {
@@ -70,7 +76,19 @@ public StoreController() {
         }
         carrito.clear();
     }
+    
+     // ========== Lista de Deseos ==========
+    public void agregarAListaDeseos(Producto producto) {
+        if (!listaDeseos.contains(producto)) {
+            listaDeseos.add(producto);
+        }
+    }
 
+    public void limpiarListaDeseos() {
+        listaDeseos.clear();
+    }
+
+    
     
 
     
