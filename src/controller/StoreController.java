@@ -58,9 +58,11 @@ public StoreController() {
     public Queue<Producto> getListaDeseos() {
         return listaDeseos;
     }
-
     
-
+    public Stack<Producto> getHistorialCompras() {
+        return historial;
+    }
+    
     // ========== Carrito ==========
     public void agregarAlCarrito(Producto producto) {
         carrito.add(producto);
@@ -87,7 +89,21 @@ public StoreController() {
     public void limpiarListaDeseos() {
         listaDeseos.clear();
     }
+    
+    // ========== Historial ==========
 
+    public void eliminarDelCarrito(Producto producto) {
+    carrito.remove(producto);
+}
+
+    public void eliminarDeListaDeseos(Producto producto) {
+    listaDeseos.remove(producto);
+}
+
+    public void comprar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}
     
     
 
