@@ -35,7 +35,16 @@ public StoreController() {
 }
 
 
-    
+    // ========== Métodos de Autenticación ==========
+    public boolean login(String email, String password) {
+        return usuariosRegistrados.containsKey(email) && usuariosRegistrados.get(email).equals(password);
+    }
+
+    public boolean register(String email, String password) {
+        if (usuariosRegistrados.containsKey(email)) return false;
+        usuariosRegistrados.put(email, password);
+        return true;
+    }
 
     // ========== Getters ==========
     public List<Producto> getProductos() {
