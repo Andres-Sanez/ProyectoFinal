@@ -97,6 +97,7 @@ public class CatalogoView extends JFrame {
         tallaLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         card.add(tallaLabel);
 
+        
         JButton addToCart = new JButton("Agregar al carrito");
         addToCart.setAlignmentX(Component.CENTER_ALIGNMENT);
         addToCart.setBackground(new Color(255, 70, 70));
