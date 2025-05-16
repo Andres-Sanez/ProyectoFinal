@@ -63,7 +63,7 @@ public class LoginView extends JFrame {
         signupButton.setFont(new Font("Arial", Font.PLAIN, 14));
         add(signupButton);
 
-        // Login logic
+        // Login 
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String email = emailField.getText();
