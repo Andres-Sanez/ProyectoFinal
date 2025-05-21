@@ -3,19 +3,20 @@ package controller;
 import model.Producto;
 
 import java.util.*;
+import model.ListaEnlazada;
 
 public class StoreController {
     private final List<Producto> catalogo;
     private final Stack<Producto> historial;
     private final Queue<Producto> listaDeseos;
-    private final List<Producto> carrito;
+    private ListaEnlazada carrito = new ListaEnlazada();
     private final Map<String, String> usuariosRegistrados;
 
-public StoreController() {
+    public StoreController() {
         catalogo = new ArrayList<>();
         historial = new Stack<>();
         listaDeseos = new LinkedList<>();
-        carrito = new ArrayList<>();
+        carrito = new ListaEnlazada();
         usuariosRegistrados = new HashMap<>();
 
         cargarProductos();
@@ -50,36 +51,43 @@ public StoreController() {
     public List<Producto> getProductos() {
         return catalogo;
     }
+
     
-    public List<Producto> getCarrito() {
-        return carrito;
-    }
-    
+
     public Queue<Producto> getListaDeseos() {
         return listaDeseos;
     }
-    
+
     public Stack<Producto> getHistorialCompras() {
         return historial;
     }
-    
+
     // ========== Carrito ==========
     public void agregarAlCarrito(Producto producto) {
-        carrito.add(producto);
-    }
-
-    public void vaciarCarrito() {
-        carrito.clear();
-    }
-
-    public void finalizarCompra() {
-        for (Producto p : carrito) {
-            historial.push(p);
-        }
-        carrito.clear();
-    }
+    carrito.agregar(producto);
+}
     
-     // ========== Lista de Deseos ==========
+    public void finalizarCompra() {
+    for (Producto p : carrito.toList()) {
+        historial.push(p);
+    }
+    carrito.vaciar();
+}
+
+
+public void eliminarDelCarrito(Producto producto) {
+    carrito.eliminar(producto);
+}
+
+public void vaciarCarrito() {
+    carrito.vaciar();
+}
+
+public List<Producto> getCarrito() {
+    return carrito.toList();
+}
+
+    // ========== Lista de Deseos ==========
     public void agregarAListaDeseos(Producto producto) {
         if (!listaDeseos.contains(producto)) {
             listaDeseos.add(producto);
@@ -89,14 +97,12 @@ public StoreController() {
     public void limpiarListaDeseos() {
         listaDeseos.clear();
     }
+
+    // ========== Historial  ==========
+
     
-    // ========== Historial ==========
 
-    public void eliminarDelCarrito(Producto producto) {
-    carrito.remove(producto);
-}
-
-    public void eliminarDeListaDeseos(Producto producto) {
+public void eliminarDeListaDeseos(Producto producto) {
     listaDeseos.remove(producto);
 }
 
@@ -104,9 +110,3 @@ public StoreController() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
-    
-    
-
-    
-
-    
