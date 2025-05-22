@@ -3,19 +3,21 @@ package controller;
 import model.Producto;
 
 import java.util.*;
+import model.ColaDobleCircular;
 import model.ListaEnlazada;
+import model.NodoDoble;
 
 public class StoreController {
     private final List<Producto> catalogo;
     private final Stack<Producto> historial;
-    private final Queue<Producto> listaDeseos;
+    private ColaDobleCircular listaDeseos = new ColaDobleCircular();
     private ListaEnlazada carrito = new ListaEnlazada();
     private final Map<String, String> usuariosRegistrados;
 
     public StoreController() {
         catalogo = new ArrayList<>();
         historial = new Stack<>();
-        listaDeseos = new LinkedList<>();
+        listaDeseos = new ColaDobleCircular();
         carrito = new ListaEnlazada();
         usuariosRegistrados = new HashMap<>();
 
@@ -52,12 +54,6 @@ public class StoreController {
         return catalogo;
     }
 
-    
-
-    public Queue<Producto> getListaDeseos() {
-        return listaDeseos;
-    }
-
     public Stack<Producto> getHistorialCompras() {
         return historial;
     }
@@ -89,23 +85,23 @@ public List<Producto> getCarrito() {
 
     // ========== Lista de Deseos ==========
     public void agregarAListaDeseos(Producto producto) {
-        if (!listaDeseos.contains(producto)) {
-            listaDeseos.add(producto);
-        }
-    }
-
-    public void limpiarListaDeseos() {
-        listaDeseos.clear();
-    }
-
-    // ========== Historial  ==========
-
-    
-
-public void eliminarDeListaDeseos(Producto producto) {
-    listaDeseos.remove(producto);
+    listaDeseos.encolar(producto);
 }
 
+public void eliminarDeListaDeseos(Producto producto) {
+    listaDeseos.eliminar(producto);
+}
+
+public List<Producto> getListaDeseos() {
+    return listaDeseos.toList();
+}
+
+public NodoDoble getListaDeseosNodo() {
+    return listaDeseos.getFrente();
+}
+
+
+    // ========== Historial  ==========
     public void comprar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
