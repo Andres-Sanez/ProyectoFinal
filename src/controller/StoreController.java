@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import model.Producto;
 
 import java.util.*;
@@ -64,11 +67,27 @@ public class StoreController {
 }
     
     public void finalizarCompra() {
-    for (Producto p : carrito.toList()) {
-        historial.push(p);
+      if (carrito.estaVacia()) {
+        return;
     }
+
+    try (FileWriter writer = new FileWriter("historial.txt", true)) {
+        String fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        writer.write("=== Compra realizada el " + fecha + " ===\n");
+
+        for (Producto p : carrito.toList()) {
+            historial.push(p);
+            writer.write(p.getNombre() + "," + p.getPrecio() + "," + p.getTalla() + "\n");
+        }
+
+        writer.write("\n");
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
     carrito.vaciar();
 }
+
 
 
 public void eliminarDelCarrito(Producto producto) {
