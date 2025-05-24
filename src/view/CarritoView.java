@@ -74,12 +74,12 @@ public class CarritoView extends JFrame {
             bottomPanel.add(totalLabel, BorderLayout.WEST);
 
             JButton finalizarBtn = new JButton("Finalizar compra");
-            finalizarBtn.setFont(new Font("Arial", Font.BOLD, 14));
+            finalizarBtn.setFont(new Font("Arial", Font.BOLD, 14));    
             finalizarBtn.addActionListener(e -> {
-                controller.finalizarCompra();
-                JOptionPane.showMessageDialog(this, "Compra realizada con éxito.");
-                dispose();
-                new CarritoView(controller);
+            controller.finalizarCompra();
+            JOptionPane.showMessageDialog(this, "Compra finalizada y guardada en historial.txt");
+            dispose(); 
+            new CarritoView(controller);
             });
 
             bottomPanel.add(finalizarBtn, BorderLayout.EAST);
